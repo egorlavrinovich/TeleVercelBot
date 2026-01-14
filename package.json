@@ -11,8 +11,5 @@
   "dependencies": {
     "telebot": "^1.4.1",
     "telebot-vercel": "^1.0.1"
-  },
-  "engines": {
-    "node": "^18.0.0"
   }
 }
