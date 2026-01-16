@@ -1,17 +1,21 @@
 import { MongoClient } from "mongodb";
 
-const client = new MongoClient(process.env.DB_TOKEN);
+const uri = process.env.DB_TOKEN;
 
-export default async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
+let client;
+let clientPromise;
+
+if (!global._mongoClientPromise) {
+  client = new MongoClient(uri, {
+    serverSelectionTimeoutMS: 3000,
+  });
+
+  global._mongoClientPromise = client.connect();
+}
+
+clientPromise = global._mongoClientPromise;
+
+export async function getDb() {
+  const client = await clientPromise;
+  return client.db("test"); // ❗ ЯВНОЕ ИМЯ БД
 }
