@@ -1,12 +1,6 @@
-import { MongoClient, ServerApiVersion } from "mongodb";
+import { MongoClient } from "mongodb";
 
-const client = new MongoClient(process.env.DB_TOKEN, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
+const client = new MongoClient(process.env.DB_TOKEN);
 
 export default async function run() {
   try {
