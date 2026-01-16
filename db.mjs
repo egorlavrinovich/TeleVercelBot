@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 
-const client = new MongoClient(uri, {
+const client = new MongoClient(process.env.DB_TOKEN, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
